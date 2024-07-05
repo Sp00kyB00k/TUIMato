@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "pomo"
+version = "0.1.0"
+description = ""
+authors = ["Sp00kyB00k <Sp00ky@B00k.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+textual = "^0.71.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

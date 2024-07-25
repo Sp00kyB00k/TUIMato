@@ -82,9 +82,9 @@ class Timer(Static):
             time_display.reset()
 
     def compose(self) -> ComposeResult:
-        yield Button("Start", id="start", variant="success")
+        yield Button("Start", id="start", variant="warning")
         yield Button("Stop", id="stop", variant="error")
-        yield Button("Reset", id="reset")
+        yield Button("Reset", id="reset", variant="primary")
         yield TimeDisplay()
 
 
@@ -147,7 +147,7 @@ class Pomo(App):
     BINDINGS = [
         ("a", "add_task", "Add Task"),
         ("r", "remove_task", "Remove Task"),
-        ("f", "finish_task", "Last Task Finished"),
+        ("f", "finish_task", "Finish Task"),
         ("e", "export_task", "Export Tasks to JSON"),
         ("d", "switch_mode('dashboard')", "Dashboard"),
         ("s", "switch_mode('settings')", "Settings"),
@@ -162,14 +162,17 @@ class Pomo(App):
 
     SETTINGS = {'hours': 0.0, 'minutes': 25.0, 'seconds': 0.0}
     TASK_LIST = []
-    TASK_COUNTER = 0
 
     def on_mount(self) -> None:
         self.switch_mode("dashboard")
     
     def action_export_task(self) -> None:
-        with open('pomodoro_task_list', 'w') as f:
-            f.write(json.dumps(self.TASK_LIST))
+        try:
+            with open('pomodoro_task_list', 'w') as f:
+                f.write(json.dumps(self.TASK_LIST))
+                self.notify('Succesfully exported the tasks!', severity='information')
+        except:
+            self.notify('Something went wrong', severity='error')
 
     def action_add_task(self) -> None:
         """
@@ -181,16 +184,14 @@ class Pomo(App):
             Called when TaskModal is dismissed
             """
             self.query_one("#task_container").mount(
-                Checkbox(task_name, id=f"task-{self.TASK_COUNTER}"))
-            self.TASK_COUNTER += 1
+                Checkbox(task_name, id=f"task-{len(self.TASK_LIST)}"))
         self.switch_mode("dashboard")
         self.push_screen(TaskModal(), obtain_task_input)
 
     def action_remove_task(self) -> None:
-        tasks = self.query(f"#task-{self.TASK_COUNTER}")
+        tasks = self.query(f"#task-{len(self.TASK_LIST)}")
         if tasks:
             tasks.last().remove()
-            self.TASK_COUNTER -= 1
 
     def action_finish_task(self) -> None:
         self.finish_task()

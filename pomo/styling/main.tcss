@@ -1,3 +1,7 @@
+ToastRack {
+    align: right top;
+}
+
 Header { 
     dock: top;
 }

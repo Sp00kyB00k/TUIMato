@@ -23,6 +23,12 @@ Screen {
     background: rgb(38, 53, 93); 
 }
 
+#task_label {
+    width: 100%;
+    align: center middle;
+    content-align: center middle;
+}
+
 Rule {
     align: center middle;
     margin: 2;

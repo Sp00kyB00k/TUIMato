@@ -105,6 +105,8 @@ class TimeDisplay(Static):
     def on_mount(self) -> None:
         self.update_timer = self.set_interval(
             1 / 60, self.update_time, pause=True)
+        self.reset()
+        self.stop()
 
     def update_time(self) -> None:
         current_time = monotonic()
@@ -136,7 +138,7 @@ class TimeDisplay(Static):
         self.display_time = self.time
 
 
-class Pomo(App):
+class TUIMato(App):
     """
     A Textual App for keeping track of tasks and setting a timer
     """
@@ -192,13 +194,14 @@ class Pomo(App):
         tasks = self.query(f"#task-{len(self.TASK_LIST)}")
         if tasks:
             tasks.last().remove()
+            self.TASK_LIST.pop()
 
     def action_finish_task(self) -> None:
         self.finish_task()
 
     def finish_task(self) -> None:
         try:
-            for task_number in range(0, len(self.TASK_LIST) + 1): 
+            for task_number in range(1, len(self.TASK_LIST) + 1): 
                 task = self.query_one(f"#task-{task_number}")
                 if task.value ==  True:
                     continue
@@ -209,5 +212,5 @@ class Pomo(App):
             pass
 
 if __name__ == "__main__":
-    app = Pomo()
+    app = TUIMato()
     app.run()

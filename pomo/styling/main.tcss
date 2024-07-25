@@ -1,0 +1,103 @@
+Header { 
+    dock: top;
+}
+
+Footer {
+    dock: bottom;
+}
+
+Screen {
+    align: center middle;
+    content-align: center middle;
+    background: rgb(38, 53, 93); 
+    color: rgb(175, 71, 210); 
+    opacity: 90%;
+}
+
+#task_container > Checkbox {
+    width: 100%;
+    background: rgb(38, 53, 93); 
+}
+
+Rule {
+    align: center middle;
+    margin: 2;
+    color: rgb(255, 143, 0);
+}
+
+Title & Subtitle {
+    align: center middle;
+}
+
+Timer {
+    layout: horizontal;
+    background: $boost;
+    height: 5;
+    margin: 1;
+    min-width: 50;
+    padding: 1;
+}
+
+TimeDisplay {
+    content-align: center middle;
+    height: 4;
+    text-style: bold;
+}
+
+TaskModal {
+    align: center middle;
+    layout: vertical;
+    padding: 1 2;
+    width: auto;
+    max-width: 70%;
+    height: auto;
+    max-height: 80%;
+    background: $panel;
+}
+
+TaskModal > Input {
+    margin: 0 1;
+}
+
+TaskModal > Label {
+    align: center middle;
+}
+
+Button {
+    width: 16;
+}
+
+#start {
+    dock: left;
+}
+
+#stop {
+    dock: left;
+    display: none;
+}
+
+#reset {
+    dock: right;
+}
+
+.started {
+    text-style: bold;
+    background: $success;
+    color: $text;
+}
+
+.started TimeDisplay {
+    text-opacity: 100%;
+}
+
+.started #start {
+    display: none;
+}
+
+.started #stop {
+    display: block;
+}
+
+.started #reset {
+    visibility: hidden;
+}

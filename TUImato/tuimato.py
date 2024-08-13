@@ -95,6 +95,7 @@ class TimeDisplay(Static):
     AUTO_FOCUS = None
     display_time = reactive(0.0)
 
+
     def __init__(self):
         super().__init__()
         self.delta_time = monotonic()
@@ -127,6 +128,7 @@ class TimeDisplay(Static):
     def start(self) -> None:
         self.time = self.app.SETTINGS['hours'] * 3600 + \
             self.app.SETTINGS['minutes'] * 60 + self.app.SETTINGS['seconds']
+        self.delta_time = monotonic()
         self.update_timer.resume()
 
     def stop(self) -> None:
